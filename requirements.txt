@@ -1,0 +1,8 @@
+flask
+flask_wtf
+flask_sqlalchemy
+transformers
+torch
+torchvision
+tensorflow
+flax
