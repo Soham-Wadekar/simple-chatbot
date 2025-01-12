@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChatGPT Styled Chatbot</title>
+  <title>Simple Chatbot</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
@@ -15,7 +15,7 @@
       <div class="message">
         {% for chat in chat_history %}
             <div class="message {{ chat.sender }}">
-                {{ chat.sender }}: {{ chat.message }}
+                {{ chat.message }}
             </div>
         {% endfor %}
       </div>
