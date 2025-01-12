@@ -1,6 +1,7 @@
 from config import app, db
 from model import ChatHistory
 
+
 def display_db(app=app, db=db):
 
     with app.app_context():
