@@ -31,7 +31,7 @@ def home():
 
         return redirect(url_for('home'))
 
-    return render_template('home.html', form=form, chat_history=chat_history, message='')
+    return render_template('home.html', form=form, chat_history=chat_history)
 
 @app.route("/clear", methods=['POST'])
 def clear_chat_history():
