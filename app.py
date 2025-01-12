@@ -6,11 +6,18 @@ from config import app, db
 from transformers import pipeline
 import warnings
 
+# import getpass
+# import os
+
+# if not os.environ.get("OPENAI_API_KEY"):
+#   os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter API key for OpenAI: ")
+
+# from langchain_openai import ChatOpenAI
+
+# model = ChatOpenAI(model="gpt-4o-mini")
 
 def warn(*args, **kwargs):
     pass
-
-
 warnings.warn = warn
 generator = pipeline("text-generation", model="gpt2")
 
@@ -27,6 +34,7 @@ def home():
         db.session.add(user_message)
 
         bot_response = generator(user_input)[0]["generated_text"]
+        # bot_response = model.invoke(user_input)
         bot_message = ChatHistory(sender="bot", message=bot_response)
         db.session.add(bot_message)
 
@@ -45,10 +53,8 @@ def clear_chat_history():
 
         ChatHistory.query.delete()
         db.session.commit()
-        message = "Chat History cleared successfully!"
     except Exception as e:
         db.session.rollback()
-        message = f"Error deleting chat history: {e}"
 
     return redirect(url_for("home"))
 
