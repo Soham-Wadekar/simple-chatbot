@@ -1,7 +1,14 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import render_template, url_for, redirect
 from forms import ChatForm
 from model import ChatHistory
 from config import app, db
+
+from transformers import pipeline
+import warnings
+def warn(*args, **kwargs):
+    pass
+warnings.warn = warn
+generator = pipeline("text-generation", model='gpt2')
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -14,7 +21,7 @@ def home():
         user_message = ChatHistory(sender='user', message=user_input)
         db.session.add(user_message)
 
-        bot_response = f"Responding to: {user_input}"
+        bot_response = generator(user_input)[0]['generated_text']
         bot_message = ChatHistory(sender='bot', message=bot_response)
         db.session.add(bot_message)
 
